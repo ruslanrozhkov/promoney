@@ -1,11 +1,14 @@
 require "spec_helper"
 
 describe Promoney do
-  it "has a version number" do
-    expect(Promoney::VERSION).not_to be nil
-  end
-
-  it "does something useful" do
-    expect(false).to eq(true)
-  end
+	it "first configure the currency rates" do
+		RSpec.configure do |config|
+			config.before(:all) do
+				Promoney.configure do |config|
+					config.base_currency = 'EUR'
+					config.currencies_rates = {'USD' => 1.25, 'Bitcoin' => 0.0004}
+				end
+			end	
+		end
+	end
 end
