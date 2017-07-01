@@ -24,7 +24,7 @@ require 'promoney'
 ```
 First configure the currency rates:
 ```ruby
-ProMoney.configure do |config|
+Promoney.configure do |config|
 	config.base_currency = 'EUR' # base currency
 	config.currencies_rates = {'USD' => 1.11, 'Bitcoin' => 0.0047} # other currencies
 end
