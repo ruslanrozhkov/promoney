@@ -19,51 +19,51 @@ Or install it yourself as:
     $ gem install promoney
 
 ## Usage
+```ruby
+	require 'promoney'
+```
+First configure the currency rates:
+```ruby
+	ProMoney.configure do |config|
+		config.base_currency = 'EUR' # base currency
+		config.currencies_rates = {'USD' => 1.11, 'Bitcoin' => 0.0047} # other currencies
+	end
+```
+Instantiate money objects:
+```ruby
+	fifty_eur = Money.new(50, 'EUR')
+```
+Get amount and currency:
+```ruby
+	fifty_eur.amount   # => 50
+	fifty_eur.currency # => "EUR"
+```
+Convert to a different currency:
+```ruby
+	fifty_eur.convert_to('USD') # => 55.50 USD
+```
+Perform operations in different currencies:
+```ruby
+	twenty_dollars = Money.new(20, 'USD')
+```
+Arithmetics:
+```ruby
+	fifty_eur + twenty_dollars # => 68.02 EUR
+	fifty_eur - twenty_dollars # => 31.98 EUR
+	fifty_eur / 2              # => 25 EUR
+	twenty_dollars * 3         # => 60 USD
+```
+Comparisons (also in different currencies):
+```ruby
+	twenty_dollars == Money.new(20, 'USD') # => true
+	twenty_dollars == Money.new(30, 'USD') # => false
 
-require 'promoney'
+	fifty_eur_in_usd = fifty_eur.convert_to('USD')
+	fifty_eur_in_usd == fifty_eur          # => true
 
-# First configure the currency rates
-
-ProMoney.configure do |config|
-	config.base_currency = 'EUR' # base currency
-	config.currencies_rates = {'USD' => 1.11, 'Bitcoin' => 0.0047} # other currencies
-end
-
-# Instantiate money objects:
-
-fifty_eur = Money.new(50, 'EUR')
-
-# Get amount and currency:
-
-fifty_eur.amount   # => 50
-fifty_eur.currency # => "EUR"
-
-# Convert to a different currency
-
-fifty_eur.convert_to('USD') # => 55.50 USD
-
-# Perform operations in different currencies:
-
-twenty_dollars = Money.new(20, 'USD')
-
-# Arithmetics:
-
-fifty_eur + twenty_dollars # => 68.02 EUR
-fifty_eur - twenty_dollars # => 31.98 EUR
-fifty_eur / 2              # => 25 EUR
-twenty_dollars * 3         # => 60 USD
-
-# Comparisons (also in different currencies):
-
-twenty_dollars == Money.new(20, 'USD') # => true
-twenty_dollars == Money.new(30, 'USD') # => false
-
-fifty_eur_in_usd = fifty_eur.convert_to('USD')
-fifty_eur_in_usd == fifty_eur          # => true
-
-twenty_dollars > Money.new(5, 'USD')   # => true
-twenty_dollars < fifty_eur             # => true
-
+	twenty_dollars > Money.new(5, 'USD')   # => true
+	twenty_dollars < fifty_eur             # => true
+```
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
