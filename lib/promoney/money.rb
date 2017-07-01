@@ -56,16 +56,21 @@ class Money
 		Money.new(sum, self.currency)
 	end
 
+	# convert self money obj to base currency
+	def base_curr_amount
+		self.convert_to(@base_currency).amount
+	end
+
 	# Comparisons methods
 	def ==(money)
-		self.convert_to('EUR').amount == money.convert_to('EUR').amount
+		base_curr_amount == money.base_curr_amount
 	end
 
 	def >(money)
-		self.convert_to('EUR').amount > money.convert_to('EUR').amount
+		base_curr_amount > money.base_curr_amount
 	end
 
 	def <(money)
-		self.convert_to('EUR').amount < money.convert_to('EUR').amount
+		base_curr_amount < money.base_curr_amount
 	end
 end
